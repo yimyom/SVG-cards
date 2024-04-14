@@ -4,6 +4,10 @@ library(xml2)
 library(argparser)
 library(glue)
 library(stringr)
+library(doFuture) |> suppressPackageStartupMessages()
+library(foreach) |> suppressPackageStartupMessages()
+
+plan(multicore)
 
 .f = glue::glue
 
@@ -13,6 +17,14 @@ find_base_dimension <- function(svg_doc)
     xml_find_first("/*[name()='svg']/*[name()='defs']") |> # get the common objects (in <defs>)
     xml_find_first('./*[name()="g"][@id="base"]') |>
     xml_child()
+}
+
+extract_href = function(elmt)
+{
+    id = xml_attr(elmt, 'xlink:href')
+    if(is.na(id))
+        id = xml_attr(elmt, 'href')
+    sub('#', '', id)
 }
 
 rebuild_card = function(card, all_defs)
@@ -25,23 +37,32 @@ rebuild_card = function(card, all_defs)
     defs = xml_add_child(svg, 'defs') # create the defs for this card
     new_card = xml_add_child(svg, card)
 
-    inserted_defs = list()
+    inserted_defs = character()
     for(def in xml_find_all(card, './/*[@xlink:href]')) # get the defs needed for this card
     {
-        def_id = xml_attr(def, 'xlink:href') # get id of the required def
-        if(is.na(def_id))
-            def_id = xml_attr(def,'href')
-        def_id = sub('#', '', def_id)
-
+        def_id = extract_href(def) # get id of the required def
         if(!def_id %in% inserted_defs)
         {
             # find its corresponding group in defs
-            required_group <- xml_find_first(all_defs, .f("./*[name()='g'][@id='{def_id}']"))
+            required_group <- xml_find_first(all_defs, .f("//*[@id='{def_id}']"))
             if(!is.na(xml_type(required_group)))
             {
+                # add the top group
                 xml_add_child(defs, required_group, ) # add this group to the new defs
                 xml_ns_strip(defs)
-                inserted_defs[[length(inserted_defs)+1]] = def_id
+                inserted_defs = c(inserted_defs, def_id)
+
+                # search for other href within this group
+                subdef_ids = xml_find_all(required_group, './/*[@xlink:href]') |>
+                            sapply(extract_href) |>
+                            unique()
+                subdef_ids = subdef_ids[!subdef_ids %in% inserted_defs]
+                required_subgroups = lapply(subdef_ids, \(id) xml_find_first(all_defs, .f("//*[@id='{id}']")))
+                for(elmt in required_subgroups)
+                {
+                    xml_add_child(defs, elmt)
+                    xml_ns_strip(defs)
+                }
             }
             else
             {
@@ -56,17 +77,13 @@ clean_up_attr = function(node, node_type, attr)
 {
     if(xml_name(node) == node_type)
     {
-        print(as.list(xml_attrs(node)))
         attributes = as.list(xml_attrs(node))
         if(attr %in% names(attributes))
             attributes[[attr]] <- NULL
         xml_set_attrs(node, as.vector(attributes))
-        print('_____')
-        print(as.list(xml_attrs(node)))
     }
     if(xml_name(node)=='use')
     {
-        print(as.list(xml_attrs(node)))
         stop()
     }
 
@@ -74,7 +91,6 @@ clean_up_attr = function(node, node_type, attr)
     {
         clean_up_attr(child, node_type, attr)
     }
-    print('+++++++++++++++++++++++++++++++++++')
 }
 
 #            card_base = xml_find_all(card, './/*[@xlink:href="#base"]')
@@ -98,6 +114,7 @@ main <- function()
     # Parse command line arguments
     parser <- arg_parser('Generate SVG cards deck')
     parser <- add_argument(parser, 'file', help='File to split', type='character')
+    parser <- add_argument(parser, 'dest', help='destination dir', type='character')
     argv <- parse_args(parser)
 
     if(is.null(argv$file))
@@ -106,6 +123,9 @@ main <- function()
     }
     else
     {
+        if(!fs::file_exists(argv$file))
+            stop(.f('{argv$file} does not exist'))
+
         svg_file <- argv$file
         svg_doc <- read_xml(svg_file) # load svg file
     
@@ -113,7 +133,7 @@ main <- function()
         cards = xml_find_all(top_group, "./*[name()='g']") # find all the cards (as <g> groups)
         defs = xml_find_first(svg_doc, "/*[name()='svg']/*[name()='defs']") # get the common objects (in <defs>)
 
-        for(card in cards)
+        foreach(card = cards) %dofuture%
         {
             # rebuild the card as a single SVG file
             new_card = rebuild_card(card, defs)
@@ -122,12 +142,12 @@ main <- function()
             # adjust the viewBox
             new_card = reposition_card(new_card, card_id)
             # write the result
-            write_xml(new_card, .f('{card_id}.svg'))
-        }
+            write_xml(new_card, fs::path(argv$dest) / .f('{card_id}.svg'))
+        } -> dev_null
     }
 }
 
 if(!interactive())
 {
-        main()
+    main()
 }
