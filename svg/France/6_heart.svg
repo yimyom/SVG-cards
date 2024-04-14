@@ -1,0 +1,26 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="836.625 249.755 169.075 244.64">
+  <defs>
+    <g id="base">
+      <path style="fill:#FFFFFF;stroke:#000000;stroke-width:2.5" d="M 0,0C0,3.78 3.09,6.87 6.87,6.87L159.715,6.87C163.485,6.87 166.575,3.78 166.575,0L166.575,-228.4C166.575,-232.18 163.485,-235.27 159.715,-235.27L6.87,-235.27C3.09,-235.27 0,-232.18 0,-228.4L0,0 z"/>
+    </g>
+    <g id="n_6">
+      <text transform="scale(0.56453 1.05741)" font-family="Bitstream Vera Serif" font-weight="bold" font-size="43">6</text>
+    </g>
+    <g id="heart">
+      <path style="fill:#E6180A;" d="M-7.67,3.93c0.01-4.71,5.91-8.14,7.64-11.87c1.75,3.72,7.66,7.12,7.7,11.83c0.01,2.22-1.71,4.03-3.82,4.03C1.73,7.92,0,6.13,0,3.91c0,2.23-1.71,4.03-3.82,4.03C-5.94,7.95-7.66,6.15-7.67,3.93z"/>
+    </g>
+  </defs>
+  <g xmlns:xlink="http://www.w3.org/1999/xlink" id="6_heart">
+    <use xlink:href="#base" x="837.875" y="486.275"/>
+    <use xlink:href="#n_6" x="841.875" y="287.157" style="fill:#e6180a"/>
+    <use xlink:href="#n_6" x="1001.45" y="455.995" transform="rotate(180,1001.45,455.995)" style="fill:#e6180a"/>
+    <use xlink:href="#heart" x="851.525" y="301.157" transform="rotate(180,851.525,301.157)"/>
+    <use xlink:href="#heart" x="991.8" y="441.995"/>
+    <use xlink:href="#heart" x="367.389" y="119.902" transform="scale(2.4) rotate(180,367.389,119.902)"/>
+    <use xlink:href="#heart" x="367.389" y="151.961" transform="scale(2.4) rotate(180,367.389,151.961)"/>
+    <use xlink:href="#heart" x="367.389" y="188.016" transform="scale(2.4)"/>
+    <use xlink:href="#heart" x="400.663" y="119.902" transform="scale(2.4) rotate(180,400.663,119.902)"/>
+    <use xlink:href="#heart" x="400.663" y="151.961" transform="scale(2.4) rotate(180,400.663,151.961)"/>
+    <use xlink:href="#heart" x="400.663" y="188.016" transform="scale(2.4)"/>
+  </g>
+</svg>

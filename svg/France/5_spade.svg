@@ -1,0 +1,26 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="669.05 492.892 169.075 244.64">
+  <defs>
+    <g id="base">
+      <path style="fill:#FFFFFF;stroke:#000000;stroke-width:2.5" d="M 0,0C0,3.78 3.09,6.87 6.87,6.87L159.715,6.87C163.485,6.87 166.575,3.78 166.575,0L166.575,-228.4C166.575,-232.18 163.485,-235.27 159.715,-235.27L6.87,-235.27C3.09,-235.27 0,-232.18 0,-228.4L0,0 z"/>
+    </g>
+    <g id="n_5">
+      <text transform="scale(0.56453 1.05741)" font-family="Bitstream Vera Serif" font-weight="bold" font-size="43">5</text>
+    </g>
+    <g id="spade">
+      <path d="M3.92-7.93c-1.67,0-2.55,1.78-3.01,3.56c-0.46,1.78-0.5,3.56-0.5,3.56L-0.44-0.8c0,0-0.16-7.13-3.5-7.13H3.92z"/>
+      <path d="M6.75-0.8C6.74,2.67,1.53,5.19,0,7.93C-1.53,5.18-6.74,2.66-6.75-0.8c0-1.64,1.51-2.97,3.38-2.97C-1.51-3.77,0-2.44,0-0.8c0-1.64,1.51-2.97,3.38-2.97S6.75-2.44,6.75-0.8z"/>
+    </g>
+  </defs>
+  <g xmlns:xlink="http://www.w3.org/1999/xlink" id="5_spade">
+    <use xlink:href="#base" x="670.3" y="729.412"/>
+    <use xlink:href="#n_5" x="674.3" y="530.295"/>
+    <use xlink:href="#n_5" x="833.875" y="699.132" transform="rotate(180,833.875,699.132)"/>
+    <use xlink:href="#spade" x="683.95" y="544.295" transform="rotate(180,683.95,544.295)"/>
+    <use xlink:href="#spade" x="824.225" y="685.132"/>
+    <use xlink:href="#spade" x="297.566" y="221.209" transform="scale(2.4) rotate(180,297.566,221.209)"/>
+    <use xlink:href="#spade" x="297.566" y="289.323" transform="scale(2.4)"/>
+    <use xlink:href="#spade" x="330.84" y="221.209" transform="scale(2.4) rotate(180,330.84,221.209)"/>
+    <use xlink:href="#spade" x="330.84" y="289.323" transform="scale(2.4)"/>
+    <use xlink:href="#spade" x="314.203" y="253.268" transform="scale(2.4) rotate(180,314.203,253.268)"/>
+  </g>
+</svg>

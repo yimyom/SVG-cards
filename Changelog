@@ -1,3 +1,9 @@
+2024-04-14 David Bellot <david.bellot@gmail.com>
+	* release of SVG-cards 3.0
+	* cards are in single file and split in many files now
+	* tools to do the conversion from SVG to PNG and PDF (all written in R!)
+	* formats available: SVG, PDF and PNG
+
 2018-06-13 David Bellot <david.bellot@gmail.com>
 	* updated licence and readme
 

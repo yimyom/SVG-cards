@@ -1,34 +1,17 @@
-SVG-cards 2.0.2 
----------------
+SVG-cards
+---------
 
-This is a set of playing cards made in pure SVG with all kings, queens, jacks, numbers, jokers and backs of cards. This set of SVG files is intended to be used in games, figures, illustrations, web sites as long as you provide the code source and the LGPL license (see the COPYING file). Although this is a free software, the license is the LGPL so you can use this set of cards even in a non-free software.
+A collection of traditional deck of playing cards.
+The primary format is SVG and files in PNG, JPEG and PDF are alsi provided. For the raster image formats (PNG and JPEG), 4 sizes exist (small, medium, big and huge).
 
-The kings, queens and jacks are based on the french representation, because I find them beautiful. You can access to each either by rendering the file into a pixmap and clipping each card or by using their name with a DOM interface. All cards are inside a SVG group.
-Example :
-the king of spade is inside this group :
+The naming convention is simply `<card>_<color>.<fmt>' where
+ - `<card>` is one of 1,2,3,4,5,6,7,8,9,10,king,queen or jack
+ - `<color>` is one of club, diamond, heart or spade
+ - `<fmt>` is either svg, pdf or png
 
-<g id="king_spade">
-...
-</g>
+ There are also `back.svg` cards and `red_joker` and `black_joker`.
 
-Names are the following :
+The directory structure is organized by format, country and size (for PNG files only).
+There is also a large SVG file called `svg-cards.svg` for each country containing the entire deck of card. Historically it was for GNOME games.
 
-black_joker
-red_joker
-back
-{king,queen,jack}_{club,diamond,heart,spade}
-{1,2,3,4,5,6,7,8,9,10}_{club,diamond,heart,spade}
-
-Examples :
-- the ace of club is 1_club
-- the queen of diamond is queen_diamond
-
-and so on...
-
-
-These cards have been made with GNOME games in mind and have been succesfully tested with Nautilus, Eye of Gnome (both of them use librsvg) and Inkscape.
-
-Enjoy!
-
-David 
-Berkeley, CA, USA 08/12/2005
+SVG-cards is released under the LGPL 3 license.
